@@ -42,7 +42,11 @@ class GeminiService
                 ]);
 
             if ($response->failed()) {
-                Log::warning('Gemini API error', ['status' => $response->status(), 'body' => $response->body()]);
+                if ($response->status() === 429) {
+                    Log::warning('Gemini rate limit (429) — caller should use fallback questions.');
+                } else {
+                    Log::warning('Gemini API error', ['status' => $response->status(), 'body' => $response->body()]);
+                }
                 return null;
             }
 
@@ -104,7 +108,8 @@ Return ONLY valid JSON in this exact format (no markdown, no explanation):
             }
         }
 
-        throw new \Exception("Failed to parse quiz questions after $maxAttempts attempts.");
+        Log::warning('generateQuizQuestions: all attempts failed, returning empty for caller fallback.', ['category' => $category]);
+        return [];
     }
 
     /**

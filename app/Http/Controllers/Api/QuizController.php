@@ -31,31 +31,51 @@ class QuizController extends Controller
     public function show(int $id)
     {
         $quiz = Quiz::where('is_active', true)->findOrFail($id);
-        
-        // Generate dynamic AI questions
+
+        // Try to generate fresh AI questions
         $aiQuestions = $this->gemini->generateQuizQuestions($quiz->category, $quiz->difficulty, 5);
-        
-        $dbQuestions = [];
-        foreach($aiQuestions as $index => $q) {
-            $dbQuestions[] = QuizQuestion::create([
-                'quiz_id' => $quiz->id,
-                'question_text' => $q['question_text'],
-                'option_a' => $q['option_a'],
-                'option_b' => $q['option_b'],
-                'option_c' => $q['option_c'],
-                'option_d' => $q['option_d'],
-                'correct_option' => $q['correct_option'],
-                'explanation' => $q['explanation'] ?? '',
-                'order' => $index + 1
-            ]);
+
+        if (!empty($aiQuestions)) {
+            // AI questions generated — persist and return them
+            $dbQuestions = [];
+            foreach ($aiQuestions as $index => $q) {
+                $dbQuestions[] = QuizQuestion::create([
+                    'quiz_id'        => $quiz->id,
+                    'question_text'  => $q['question_text'],
+                    'option_a'       => $q['option_a'],
+                    'option_b'       => $q['option_b'],
+                    'option_c'       => $q['option_c'],
+                    'option_d'       => $q['option_d'],
+                    'correct_option' => $q['correct_option'],
+                    'explanation'    => $q['explanation'] ?? '',
+                    'order'          => $index + 1,
+                ]);
+            }
+            $quizArray = $quiz->toArray();
+            $quizArray['questions'] = collect($dbQuestions)->each->makeHidden('correct_option');
+            $quizArray['ai_generated'] = true;
+            return response()->json(['quiz' => $quizArray]);
         }
 
-        // Prepare quiz object with the newly generated questions
-        $quizArray = $quiz->toArray();
-        $quizArray['questions'] = collect($dbQuestions)->each->makeHidden('correct_option');
-        
-        return response()->json(['quiz' => $quizArray]);
+        // Fallback: use pre-seeded questions already in the DB for this quiz
+        $seededQuestions = QuizQuestion::where('quiz_id', $quiz->id)
+            ->inRandomOrder()
+            ->take(5)
+            ->get();
+
+        if ($seededQuestions->isNotEmpty()) {
+            $quizArray = $quiz->toArray();
+            $quizArray['questions'] = $seededQuestions->each->makeHidden('correct_option');
+            $quizArray['ai_generated'] = false;
+            return response()->json(['quiz' => $quizArray]);
+        }
+
+        // No questions at all — tell the frontend clearly
+        return response()->json([
+            'message' => 'Quiz questions are temporarily unavailable. The AI is taking a short break — please try again in a minute! 🤖',
+        ], 503);
     }
+
 
     public function submit(Request $request, int $id)
     {
