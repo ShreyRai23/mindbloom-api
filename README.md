@@ -1,8 +1,8 @@
-# 🌟 MindBloom API — Backend Core
+# 🌟 NexaQuest API — Backend Core
 
 ![Laravel](https://img.shields.io/badge/Laravel-12.0-red) ![PHP](https://img.shields.io/badge/PHP-8.2-blue) ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange) ![Gemini API](https://img.shields.io/badge/AI-Google_Gemini-purple)
 
-**MindBloom API** is the robust, server-side engine powering the MindBloom AI platform. Built with Laravel 12, it handles real-time gamification logic, stateless JWT authentication, complex psychometric reporting, and secure integration with the Google Gemini AI for personalized mentorship.
+**NexaQuest API** is the robust, server-side engine powering the NexaQuest AI platform. Built with Laravel 12, it handles real-time gamification logic, stateless JWT authentication, complex psychometric reporting, and secure integration with the Google Gemini AI for personalized mentorship.
 
 ## ✨ Key Features
 - **🎮 Gamification Engine:** Server-side validation and state management for daily missions, quizzes, dynamic XP awards, and achievement unlocks.
@@ -27,8 +27,8 @@ Make sure you have [PHP 8.2+](https://windows.php.net/), [Composer](https://getc
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ShreyRai23/mindbloom-api.git
-   cd mindbloom-api
+   git clone https://github.com/ShreyRai23/nexaquest-api.git
+   cd nexaquest-api
    ```
 2. Install dependencies:
    ```bash
@@ -42,7 +42,7 @@ Make sure you have [PHP 8.2+](https://windows.php.net/), [Composer](https://getc
    php artisan jwt:secret
    ```
 4. Database setup:
-   Create a local MySQL database named `mindbloom_db`. Update your `.env` file with the database credentials, then run the migrations and seeders to populate initial data:
+   Create a local MySQL database named `nexaquest_db`. Update your `.env` file with the database credentials, then run the migrations and seeders to populate initial data:
    ```bash
    php artisan migrate:fresh --seed
    ```

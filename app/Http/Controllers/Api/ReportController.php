@@ -121,7 +121,7 @@ class ReportController extends Controller
             'careers' => $careers,
         ]);
 
-        $filename = 'mindbloom-report-' . now()->format('Y-m-d') . '.pdf';
+        $filename = 'nexaquest-report-' . now()->format('Y-m-d') . '.pdf';
         return $pdf->download($filename);
     }
 }

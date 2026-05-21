@@ -13,7 +13,7 @@ use App\Http\Controllers\Api\ParentController;
 use App\Http\Controllers\Api\ProfileController;
 
 // Health check
-Route::get('/health', fn() => response()->json(['status' => 'ok', 'app' => 'MindBloom AI', 'time' => now()->toISOString()]));
+Route::get('/health', fn() => response()->json(['status' => 'ok', 'app' => 'NexaQuest AI', 'time' => now()->toISOString()]));
 
 // ─── Public Auth Routes ──────────────────────────────────────
 Route::prefix('auth')->group(function () {

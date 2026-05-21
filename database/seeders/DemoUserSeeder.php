@@ -14,7 +14,7 @@ class DemoUserSeeder extends Seeder
     public function run(): void
     {
         // Demo child
-        $childUser = User::firstOrCreate(['email' => 'aarav@mindbloom.ai'], [
+        $childUser = User::firstOrCreate(['email' => 'aarav@nexaquest.ai'], [
             'name'         => 'Aarav Mehta',
             'password'     => Hash::make('password123'),
             'role'         => 'child',
@@ -22,7 +22,7 @@ class DemoUserSeeder extends Seeder
         ]);
 
         // Demo parent
-        $parentUser = User::firstOrCreate(['email' => 'priya@mindbloom.ai'], [
+        $parentUser = User::firstOrCreate(['email' => 'priya@nexaquest.ai'], [
             'name'         => 'Priya Mehta',
             'password'     => Hash::make('password123'),
             'role'         => 'parent',
@@ -62,7 +62,7 @@ class DemoUserSeeder extends Seeder
         }
 
         // Demo parent
-        $parentUser = User::firstOrCreate(['email' => 'priya@mindbloom.ai'], [
+        $parentUser = User::firstOrCreate(['email' => 'priya@nexaquest.ai'], [
             'name'         => 'Priya Mehta',
             'password'     => Hash::make('password123'),
             'role'         => 'parent',
@@ -75,7 +75,7 @@ class DemoUserSeeder extends Seeder
         $child->update(['parent_id' => $parentUser->id]);
 
         $this->command->info("✅ Demo users created:");
-        $this->command->info("   Child:  aarav@mindbloom.ai / password123");
-        $this->command->info("   Parent: priya@mindbloom.ai / password123");
+        $this->command->info("   Child:  aarav@nexaquest.ai / password123");
+        $this->command->info("   Parent: priya@nexaquest.ai / password123");
     }
 }

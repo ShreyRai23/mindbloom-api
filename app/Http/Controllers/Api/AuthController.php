@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         $token = JWTAuth::fromUser($user);
         return response()->json([
-            'message' => 'Registration successful! Welcome to MindBloom! 🌟',
+            'message' => 'Registration successful! Welcome to NexaQuest! 🌟',
             'token'   => $token,
             'user'    => $this->userResponse($user),
         ], 201);

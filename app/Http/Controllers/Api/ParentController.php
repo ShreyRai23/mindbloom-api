@@ -237,7 +237,7 @@ class ParentController extends Controller
             'careers' => $careers,
         ]);
 
-        return $pdf->download('mindbloom-report-' . $report->report_date . '.pdf');
+        return $pdf->download('nexaquest-report-' . $report->report_date . '.pdf');
     }
 
     public function linkChild(int $childId)
