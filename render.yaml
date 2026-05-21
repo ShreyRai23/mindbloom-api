@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: mindbloom-api
+    name: nexaquest-backend
     runtime: php
     plan: free
     buildCommand: |
@@ -12,7 +12,7 @@ services:
     startCommand: php artisan serve --host 0.0.0.0 --port $PORT
     envVars:
       - key: APP_NAME
-        value: "MindBloom AI"
+        value: "NexaQuest AI"
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
@@ -22,7 +22,7 @@ services:
       - key: APP_URL
         fromService:
           type: web
-          name: mindbloom-api
+          name: nexaquest-backend
           property: host
       - key: LOG_CHANNEL
         value: stderr
@@ -32,23 +32,23 @@ services:
         value: mysql
       - key: DB_HOST
         fromDatabase:
-          name: mindbloom-db
+          name: nexaquest-db
           property: host
       - key: DB_PORT
         fromDatabase:
-          name: mindbloom-db
+          name: nexaquest-db
           property: port
       - key: DB_DATABASE
         fromDatabase:
-          name: mindbloom-db
+          name: nexaquest-db
           property: database
       - key: DB_USERNAME
         fromDatabase:
-          name: mindbloom-db
+          name: nexaquest-db
           property: user
       - key: DB_PASSWORD
         fromDatabase:
-          name: mindbloom-db
+          name: nexaquest-db
           property: password
       - key: JWT_SECRET
         generateValue: true
@@ -72,6 +72,6 @@ services:
         value: https://generativelanguage.googleapis.com/v1beta/models
 
 databases:
-  - name: mindbloom-db
+  - name: nexaquest-db
     plan: free
-    databaseName: mindbloom_db
+    databaseName: nexaquest_db
