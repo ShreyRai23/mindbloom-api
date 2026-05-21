@@ -76,8 +76,12 @@ Route::middleware('auth:api')->group(function () {
 
     // Parent-only routes
     Route::middleware('role:parent')->group(function () {
-        Route::get('/parent/dashboard',        [ParentController::class, 'dashboard']);
-        Route::get('/parent/children/{id}',    [ParentController::class, 'childDetail']);
-        Route::post('/parent/link/{childId}',  [ParentController::class, 'linkChild']);
+        Route::get('/parent/dashboard',                    [ParentController::class, 'dashboard']);
+        Route::get('/parent/children/{id}',                [ParentController::class, 'childDetail']);
+        Route::get('/parent/children/{id}/progress',       [ParentController::class, 'childProgress']);
+        Route::post('/parent/link/{childId}',              [ParentController::class, 'linkChild']);
+        Route::post('/parent/children/{id}/report',        [ParentController::class, 'generateReport']);
+        Route::get('/parent/children/{id}/report/latest',  [ParentController::class, 'latestReport']);
+        Route::get('/parent/children/{id}/report/{rid}/pdf', [ParentController::class, 'downloadReport']);
     });
 });
